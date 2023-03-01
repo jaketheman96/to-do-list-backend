@@ -15,31 +15,41 @@ class TaskController {
     this.taskService = new TaskService();
   }
 
-  async getAllTasks(): Promise<Response | undefined> {
+  async getAllTasks(): Promise<Response | void> {
     try {
       const allTasksService = await this.taskService.getAllTasks();
       return this._res.status(statusCodes.OK).json(allTasksService);
     } catch (error) {
-      this._next(error)
+      return this._next(error)
     }
   }
 
-  async postTask(): Promise<Response | undefined> {
+  async postTask(): Promise<Response | void> {
     try {
       await this.taskService.postTask(this._req.body);
       return this._res.status(statusCodes.CREATED).json({ message: 'Task created!' })
     } catch (error) {
-      this._next(error)
+      return this._next(error)
     }
   }
 
-  async editTask(): Promise<Response | undefined> {
+  async editTask(): Promise<Response | void> {
     try {
       const { body, params: { id } } = this._req;
       await this.taskService.editTask(id, body);
       return this._res.status(statusCodes.OK).json({ message: 'Task updated!' })
     } catch (error) {
-      this._next(error)
+      return this._next(error)
+    }
+  }
+
+  async doneStatus(): Promise<Response | void> {
+    try {
+      const { id } = this._req.params;
+      await this.taskService.doneStatus(id);
+      return this._res.status(statusCodes.OK).json({ message: 'Task done!' })
+    } catch (error) {
+      return this._next(error)
     }
   }
 }

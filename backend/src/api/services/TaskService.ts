@@ -16,6 +16,14 @@ class TaskService {
     await Tasks.update(taskInfos, { where: { id } })
     return;
   }
+
+  async doneStatus(id: string): Promise<void> {
+    await Tasks.update(
+      { done: true },
+      { where: { id } }
+    );
+    return;
+  }
 }
 
 export default TaskService;

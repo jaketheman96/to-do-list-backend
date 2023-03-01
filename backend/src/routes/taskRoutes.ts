@@ -9,4 +9,6 @@ taskRoutes.post('/', (req, res, next) => new TaskController(req, res, next).post
 
 taskRoutes.put('/:id', (req, res, next) => new TaskController(req, res, next).editTask())
 
+taskRoutes.put('/status/:id', (req, res, next) => new TaskController(req, res, next).doneStatus())
+
 export default { taskRoutes };
