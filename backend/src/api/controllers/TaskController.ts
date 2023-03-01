@@ -36,7 +36,10 @@ class TaskController {
   async editTask(): Promise<Response | void> {
     try {
       const { body, params: { id } } = this._req;
-      await this.taskService.editTask(id, body);
+      const response = await this.taskService.editTask(id, body);
+      if (response === 404) {
+        return this._res.status(statusCodes.NOT_FOUND).json({ message: 'Task not Found!' })
+      };
       return this._res.status(statusCodes.OK).json({ message: 'Task updated!' })
     } catch (error) {
       return this._next(error)
@@ -46,12 +49,16 @@ class TaskController {
   async doneStatus(): Promise<Response | void> {
     try {
       const { id } = this._req.params;
-      await this.taskService.doneStatus(id);
+      const response = await this.taskService.doneStatus(id);
+      if (response === 404) {
+        return this._res.status(statusCodes.NOT_FOUND).json({ message: 'Task not Found!' })
+      };
       return this._res.status(statusCodes.OK).json({ message: 'Task done!' })
     } catch (error) {
       return this._next(error)
     }
   }
+
 }
 
 export default TaskController;
