@@ -1,12 +1,13 @@
 import express from 'express';
 import ErrorHandler from './middlewares/ErrorHandler';
+import taskRouter from './routes/taskRoutes';
 
 const PORT = process.env.API_PORT || 3001
 
 const app = express();
 
 app.use(express.json());
-app.get('/', () => console.log('Get funcionando'))
+app.use('/task', taskRouter.taskRoutes);
 app.use(ErrorHandler.handle)
 
 app.listen(PORT, (): void => {
