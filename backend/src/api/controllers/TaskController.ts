@@ -23,6 +23,15 @@ class TaskController {
       this._next(error)
     }
   }
+
+  async postTask(): Promise<Response | undefined> {
+    try {
+      await this.taskService.postTask(this._req.body);
+      return this._res.status(statusCodes.CREATED).json({ message: 'Task created!' })
+    } catch (error) {
+      this._next(error)
+    }
+  }
 }
 
 export default TaskController;

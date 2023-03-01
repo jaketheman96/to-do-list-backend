@@ -32,5 +32,16 @@ class TaskController {
             }
         });
     }
+    postTask() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield this.taskService.postTask(this._req.body);
+                return this._res.status(response.status).json(response.message);
+            }
+            catch (error) {
+                this._next(error);
+            }
+        });
+    }
 }
 exports.default = TaskController;

@@ -13,11 +13,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Task_1 = __importDefault(require("../../database/models/Task"));
+const statusCode_1 = __importDefault(require("../../utils/statusCode"));
 class TaskService {
     getAllTasks() {
         return __awaiter(this, void 0, void 0, function* () {
             const allTasks = yield Task_1.default.findAll();
             return allTasks;
+        });
+    }
+    postTask(taskInfos) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Task_1.default.create(taskInfos);
+            return { status: statusCode_1.default.CREATED, message: 'Task created!' };
         });
     }
 }

@@ -3,13 +3,25 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('tasks', {
-      id: Sequelize.INTEGER,
-      description: Sequelize.STRING,
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      description: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       createdAt: {
         type: Sequelize.DATEONLY,
-        field: 'created_at'
+        field: 'created_at',
+        allowNull: false,
       },
-      done: Sequelize.BOOLEAN,
+      done: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
     });
   },
 
