@@ -59,7 +59,7 @@ class TaskController {
     }
   }
 
-  async deleteTask() {
+  async deleteTask(): Promise<Response | void> {
     try {
       const { id } = this._req.params;
       const response = await this.taskService.deleteTask(id);
