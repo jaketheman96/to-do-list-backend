@@ -59,6 +59,18 @@ class TaskController {
     }
   }
 
+  async deleteTask() {
+    try {
+      const { id } = this._req.params;
+      const response = await this.taskService.deleteTask(id);
+      if (response === 404) {
+        return this._res.status(statusCodes.NOT_FOUND).json({ message: 'Task not Found!' })
+      };
+      return this._res.status(statusCodes.OK).json({ message: 'Task deleted!' })
+    } catch (error) {
+      return this._next(error)
+    }
+  }
 }
 
 export default TaskController;

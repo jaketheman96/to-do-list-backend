@@ -11,4 +11,6 @@ taskRoutes.put('/:id', (req, res, next) => new TaskController(req, res, next).ed
 
 taskRoutes.put('/status/:id', (req, res, next) => new TaskController(req, res, next).doneStatus())
 
+taskRoutes.delete('/:id', (req, res, next) => new TaskController(req, res, next).deleteTask())
+
 export default { taskRoutes };
