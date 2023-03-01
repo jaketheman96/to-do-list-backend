@@ -7,4 +7,6 @@ taskRoutes.get('/', (req, res, next) => new TaskController(req, res, next).getAl
 
 taskRoutes.post('/', (req, res, next) => new TaskController(req, res, next).postTask())
 
+taskRoutes.put('/:id', (req, res, next) => new TaskController(req, res, next).editTask())
+
 export default { taskRoutes };

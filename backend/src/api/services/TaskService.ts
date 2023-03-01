@@ -11,6 +11,11 @@ class TaskService {
     await Tasks.create(taskInfos);
     return;
   }
+
+  async editTask(id: string, taskInfos: Itask): Promise<void> {
+    await Tasks.update(taskInfos, { where: { id } })
+    return;
+  }
 }
 
 export default TaskService;

@@ -32,6 +32,16 @@ class TaskController {
       this._next(error)
     }
   }
+
+  async editTask(): Promise<Response | undefined> {
+    try {
+      const { body, params: { id } } = this._req;
+      await this.taskService.editTask(id, body);
+      return this._res.status(statusCodes.OK).json({ message: 'Task updated!' })
+    } catch (error) {
+      this._next(error)
+    }
+  }
 }
 
 export default TaskController;
