@@ -28,18 +28,66 @@ class TaskController {
                 return this._res.status(statusCode_1.default.OK).json(allTasksService);
             }
             catch (error) {
-                this._next(error);
+                return this._next(error);
             }
         });
     }
     postTask() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const response = yield this.taskService.postTask(this._req.body);
-                return this._res.status(response.status).json(response.message);
+                yield this.taskService.postTask(this._req.body);
+                return this._res.status(statusCode_1.default.CREATED).json({ message: 'Task created!' });
             }
             catch (error) {
-                this._next(error);
+                return this._next(error);
+            }
+        });
+    }
+    editTask() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { body, params: { id } } = this._req;
+                const response = yield this.taskService.editTask(id, body);
+                if (response === 404) {
+                    return this._res.status(statusCode_1.default.NOT_FOUND).json({ message: 'Task not Found!' });
+                }
+                ;
+                return this._res.status(statusCode_1.default.OK).json({ message: 'Task updated!' });
+            }
+            catch (error) {
+                return this._next(error);
+            }
+        });
+    }
+    doneStatus() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = this._req.params;
+                const response = yield this.taskService.doneStatus(id);
+                if (response === 404) {
+                    return this._res.status(statusCode_1.default.NOT_FOUND).json({ message: 'Task not Found!' });
+                }
+                ;
+                return this._res.status(statusCode_1.default.OK).json({ message: 'Task done!' });
+            }
+            catch (error) {
+                return this._next(error);
+            }
+        });
+    }
+    deleteTask() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id } = this._req.params;
+                const response = yield this.taskService.deleteTask(id);
+                if (response === 404) {
+                    return this._res.status(statusCode_1.default.NOT_FOUND).json({ message: 'Task not Found!' });
+                }
+                ;
+                return this._res.status(statusCode_1.default.OK).json({ message: 'Task deleted!' });
+            }
+            catch (error) {
+                return this._next(error);
             }
         });
     }

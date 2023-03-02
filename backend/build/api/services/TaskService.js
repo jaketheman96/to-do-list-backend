@@ -21,10 +21,45 @@ class TaskService {
             return allTasks;
         });
     }
+    getTaskById(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const task = yield Task_1.default.findByPk(id);
+            if (!task)
+                return statusCode_1.default.NOT_FOUND;
+            return task;
+        });
+    }
     postTask(taskInfos) {
         return __awaiter(this, void 0, void 0, function* () {
             yield Task_1.default.create(taskInfos);
-            return { status: statusCode_1.default.CREATED, message: 'Task created!' };
+            return;
+        });
+    }
+    editTask(id, taskInfos) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const idValidation = yield this.getTaskById(id);
+            if (idValidation === 404)
+                return statusCode_1.default.NOT_FOUND;
+            yield Task_1.default.update(taskInfos, { where: { id } });
+            return;
+        });
+    }
+    doneStatus(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const idValidation = yield this.getTaskById(id);
+            if (idValidation === 404)
+                return statusCode_1.default.NOT_FOUND;
+            yield Task_1.default.update({ done: true }, { where: { id } });
+            return;
+        });
+    }
+    deleteTask(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const idValidation = yield this.getTaskById(id);
+            if (idValidation === 404)
+                return statusCode_1.default.NOT_FOUND;
+            yield Task_1.default.destroy({ where: { id } });
+            return;
         });
     }
 }
